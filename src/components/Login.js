@@ -7,13 +7,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 function Login() {
   const [isSignIn, setisSignIn] = useState(true);
   const email = useRef(null);
   const password = useRef(null);
   const [error, seterror] = useState();
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch;
   const toggleSignIn = () => {
     setisSignIn(!isSignIn);
   };
@@ -31,6 +35,23 @@ function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          const auth = getAuth();
+          updateProfile(user, {
+            displayName: name.current.balue,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -45,6 +66,7 @@ function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
