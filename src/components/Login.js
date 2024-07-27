@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -16,7 +16,7 @@ function Login() {
   const email = useRef(null);
   const password = useRef(null);
   const [error, seterror] = useState();
-  const navigate = useNavigate();
+
   const dispatch = useDispatch;
   const toggleSignIn = () => {
     setisSignIn(!isSignIn);
@@ -51,7 +51,7 @@ function Login() {
               // ...
             });
 
-          navigate("/browse");
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -66,7 +66,7 @@ function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
