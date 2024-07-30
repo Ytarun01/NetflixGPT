@@ -2,17 +2,18 @@ import React from "react";
 import VideoTitle from "./VideoTitle";
 import VideoBackground from "./VideoBackground";
 import { useSelector } from "react-redux";
+import SecondaryContainer from "./SecondaryContainer";
 
 const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  console.log(movies);
+  // console.log(movies);
 
-  if (!movies || movies.length === 0) return null; // Add check for empty array
+  if (!movies || movies.length === 0) return null;
 
-  const mainMovie = movies[1]; // Ensure movies array has at least 2 elements
-  console.log(mainMovie);
+  const mainMovie = movies[1];
+  // console.log(mainMovie);
 
-  const { original_title, overview, id } = mainMovie || {}; // Add fallback in case mainMovie is undefined
+  const { original_title, overview, id } = mainMovie || {};
 
   return (
     <>

@@ -10,6 +10,8 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBTPXBSglsiVE_XrgHiFwkRjjFclgsyKk8",
   authDomain: "netflixgpt-6632f.firebaseapp.com",
+  databaseURL:
+    "https://netflixgpt-6632f-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "netflixgpt-6632f",
   storageBucket: "netflixgpt-6632f.appspot.com",
   messagingSenderId: "542452472314",
