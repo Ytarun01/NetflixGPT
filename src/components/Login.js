@@ -1,13 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { useState } from "react";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -17,7 +15,7 @@ function Login() {
   const password = useRef(null);
   const [error, seterror] = useState();
 
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const toggleSignIn = () => {
     setisSignIn(!isSignIn);
   };
@@ -35,28 +33,14 @@ function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-
-          updateProfile(user, {
-            displayName: name.current.balue,
-            photoURL: "https://example.com/jane-q-user/profile.jpg",
-          })
-            .then(() => {
-              const { uid, email, displayName } = auth.currentUser;
-              dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName })
-              );
-            })
-            .catch((error) => {
-              // An error occurred
-              // ...
-            });
-
+          const { uid, email } = auth.currentUser;
+          dispatch(addUser({ uid, email }));
           // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          seterror(errorCode + ".." + errorMessage);
+          seterror(`${errorCode}..${errorMessage}`);
         });
     } else {
       signInWithEmailAndPassword(
@@ -71,7 +55,7 @@ function Login() {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          seterror(errorCode + ".." + errorMessage);
+          seterror(`${errorCode}..${errorMessage}`);
         });
     }
   };
@@ -118,7 +102,7 @@ function Login() {
         <p className="py-4" onClick={toggleSignIn}>
           {isSignIn
             ? "New to Netflix? Sign up now. "
-            : "Already registed ? Sign In Now"}
+            : "Already registered? Sign In Now"}
         </p>
       </form>
     </div>

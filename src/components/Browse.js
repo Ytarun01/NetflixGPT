@@ -9,10 +9,11 @@ import { useSelector } from "react-redux";
 import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
-  useNowPlaying();
-  usePopularMovie();
-  useUpcomming();
+  const nowPlayingMovies = useNowPlaying();
+  const popularMovies = usePopularMovie();
+  const upcomingMovies = useUpcomming();
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
   return (
     <>
       <Header />
