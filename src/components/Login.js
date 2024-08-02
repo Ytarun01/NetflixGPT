@@ -35,7 +35,7 @@ function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          const auth = getAuth();
+
           updateProfile(user, {
             displayName: name.current.balue,
             photoURL: "https://example.com/jane-q-user/profile.jpg",
